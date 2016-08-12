@@ -3,7 +3,9 @@
 require_once('includes/config.php');
 
 //check if already logged in move to home page
-if( $user->is_logged_in() ){ header('Location: index.php'); } 
+if( $user->is_logged_in() ){ 
+header('Location: index.php'); 
+} 
 
 //process login form if submitted
 if(isset($_POST['submit'])){
@@ -13,17 +15,17 @@ if(isset($_POST['submit'])){
 	
 	if($user->login($username,$password)){ 
 		$_SESSION['username'] = $username;
-		header('Location: memberpage.php');
+		header('Location: profile.php');
 		exit;
 	
 	} else {
-		$error[] = 'Wrong username or password or your account has not been activated.';
+		$error[] = 'Wrong username or password.';
 	}
 
 }//end if submit
 
 //define page title
-$title = 'Login';
+$title = 'Login - Gumbay';
 
 //include header template
 require('layout/header.php'); 
@@ -37,7 +39,7 @@ require('layout/header.php');
 	    <div class="col-xs-12 col-sm-8 col-md-6 col-sm-offset-2 col-md-offset-3">
 			<form role="form" method="post" action="" autocomplete="off">
 				<h2>Please Login</h2>
-				<p><a href='./'>Back to home page</a></p>
+				<p>Don't have an account? <a href='register.php'>Register</a></p>
 				<hr>
 
 				<?php
@@ -74,12 +76,6 @@ require('layout/header.php');
 
 				<div class="form-group">
 					<input type="password" name="password" id="password" class="form-control input-lg" placeholder="Password" tabindex="3">
-				</div>
-				
-				<div class="row">
-					<div class="col-xs-9 col-sm-9 col-md-9">
-						 <a href='reset.php'>Forgot your Password?</a>
-					</div>
 				</div>
 				
 				<hr>

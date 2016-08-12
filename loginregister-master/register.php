@@ -1,4 +1,5 @@
 <?php require('includes/config.php');
+require('layout/header.php');
 
 //if logged in redirect to members page
 if( $user->is_logged_in() ){ header('Location: memberpage.php'); }
@@ -32,21 +33,6 @@ if(isset($_POST['submit'])){
 		$error[] = 'Passwords do not match.';
 	}
 
-	//email validation
-	if(!filter_var($_POST['email'], FILTER_VALIDATE_EMAIL)){
-	    $error[] = 'Please enter a valid email address';
-	} else {
-		$stmt = $db->prepare('SELECT email FROM members WHERE email = :email');
-		$stmt->execute(array(':email' => $_POST['email']));
-		$row = $stmt->fetch(PDO::FETCH_ASSOC);
-
-		if(!empty($row['email'])){
-			$error[] = 'Email provided is already in use.';
-		}
-
-	}
-
-
 	//if no errors have been created carry on
 	if(!isset($error)){
 
@@ -67,22 +53,21 @@ if(isset($_POST['submit'])){
 				':active' => Yes
 			));
 			$id = $db->lastInsertId('memberID');
+					
+			$sql = "INSERT INTO profiles (fullname, dateofbirth, memberID, joindate, address, city, postcode, phone) VALUES (NULL, NULL, $id, CURDATE(), NULL, NULL, NULL, NULL)";
+			echo $sql;
+			
+			mysqli_select_db($conn, 'db');
+			
+			$retval = mysqli_query($conn, $sql);
+			if(!$retval)
+			{
+				die("<p>Could not enter data: ".mysql_error()."</p>");
+			}
+			
+			
 
-			//send email
-			$to = $_POST['email'];
-			$subject = "Registration Confirmation";
-			$body = "<p>Thank you for registering at demo site.</p>
-			<p>To activate your account, please click on this link: <a href='".DIR."activate.php?x=$id&y=$activasion'>".DIR."activate.php?x=$id&y=$activasion</a></p>
-			<p>Regards Site Admin</p>";
-
-			$mail = new Mail();
-			$mail->setFrom(SITEEMAIL);
-			$mail->addAddress($to);
-			$mail->subject($subject);
-			$mail->body($body);
-			$mail->send();
-
-			//redirect to index page
+			//redirect to register page
 			header('Location: register.php?action=joined');
 			exit;
 
@@ -96,7 +81,7 @@ if(isset($_POST['submit'])){
 }
 
 //define page title
-$title = 'Demo';
+$title = 'Register - Gumbay';
 
 //include header template
 require('layout/header.php');
@@ -145,7 +130,8 @@ require('layout/header.php');
 						</div>
 					</div>
 				</div>
-
+				
+				<hr>
 				<div class="row">
 					<div class="col-xs-6 col-md-6"><input type="submit" name="submit" value="Register" class="btn btn-primary btn-block btn-lg" tabindex="5"></div>
 				</div>
