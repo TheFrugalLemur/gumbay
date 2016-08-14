@@ -49,6 +49,10 @@ require('layout/header.php');
 						echo '<p class="bg-danger">'.$error.'</p>';
 					}
 				}
+				
+				if (isset($_GET['notloggedin'])){
+					echo '<p class="bg-danger">You must log in before you can create a sale</p>';
+				}
 
 				if(isset($_GET['action'])){
 

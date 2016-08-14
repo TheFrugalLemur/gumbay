@@ -3,8 +3,9 @@
 $title = 'Edit - Gumbay';
 
 //include header template
-require('layout/header.php');
+require('testsql.php');
 ?>
+
 <?php
 
 if(isset($_POST['submit'])){
@@ -20,44 +21,11 @@ if(!$conn)
 	die('<p>Could not connect: '.mysqli_connect_error($conn).'</p>');
 }
 
-mysqli_select_db($conn, 'db');
-echo "still working post_submit<br>";
+createsqlfn();
 
-$fullname = $_POST['fullname'];
-$birthday = $_POST['dofb'];
-
-$sqlfn = "";
-$sqldob = "";
-
-if (!$fullname == ""){ 
-$sqlfn = "fullname='$fullname'"; 
-$sqlcomma = "";
-}
-if (!$birthday == ""){ 
-$sqldob = "dateofbirth='$birthday'"; 
-$sqlcomma="";
-if (!$sqlfn == ""){
-	$sqlcomma = ",";
-}
-}
-if (!$sqlfn == "" OR !$sqldob == ""){
-$sql = "UPDATE profiles SET ".$sqlfn."".$sqlcomma."".$sqldob." WHERE memberID='$memberID'";
-echo $sql."<br>";
-mysqli_select_db($conn, 'db');
-$retval = mysqli_query($conn, $sql);
-if(!$retval)
-				{
-					die("<p>Could not enter data: ".mysql_error()."</p>");
-				}
-echo $retval."<br>";
-
-		header('Location: profile.php');
-}else{
-
-		header('Location: profile.php');
-}
 }
 ?>
+<?php require('layout/header.php'); ?>
 
 <div class="container">
       <div class="row">
@@ -66,11 +34,11 @@ echo $retval."<br>";
    
         <div class="panel panel-info">
 			<div class="panel-heading">
-				<h3 class="panel-title"><?php echo $_SESSION['username']; ?></h3>
+				<h3 class="panel-title">Username: <?php echo $_SESSION['username']; ?></h3>
             </div>
             <div class="panel-body">
               <div class="row">
-                <div class="col-md-3 col-lg-3 " align="center"> <img alt="User Pic" src="http://babyinfoforyou.com/wp-content/uploads/2014/10/avatar-300x300.png" class="img-circle img-responsive"> </div>
+                <div class="col-md-3 col-lg-3 " align="center"> <img alt="User Pic" src="<?php $message = ($_SESSION['gender'] == "male") ? 'images/malepp.jpg' : 'images/femalepp.jpg'; echo $message;?>" class="img-circle img-responsive"> </div>
                 <div class=" col-md-9 col-lg-9 "> 
 				
 				<form role="form" method="post" action="">
@@ -78,12 +46,57 @@ echo $retval."<br>";
                     <tbody>
 					  <tr>
 						<td>Name:</td>
-						<td><input type="text" name="fullname" placeholder="<?php echo $_SESSION['fullname'] ?>"></td>
+						<td><input maxlength="30" type="text" name="fullname" placeholder="<?php 
+						if ($_SESSION['fullname']) {
+							$message = ($_SESSION['fullname'] !== null) ? $_SESSION['fullname'] : "empty";
+							echo $message;
+						}
+						?>"></td>
 					  </tr>
 					  <tr>
 						<td>Date of Birth:</td>
-						<td><input type="date" name="dofb" placeholder="<?php echo $_SESSION['dob'] ?>"></td>
-					  </tr>  
+						<td><input type="date" name="dofb" placeholder="<?php 
+							$message = ($_SESSION['dob'] !== null) ? $_SESSION['dob'] : "empty";
+							echo $message;
+						?>"></td>
+					  </tr> 
+					  <tr>
+						<td>Gender:</td>
+						<td>
+							<label class="radio-inline"><input type="radio" name="gender" value="male">Male</label>
+							<label class="radio-inline"><input type="radio" name="gender" value="female">Female</label>
+						</td>
+					  </tr> 
+						
+					  <tr>
+						<td>Address:</td>
+						<td><input maxlength="50" type="text" name="address" placeholder="<?php 
+							$message = ($_SESSION['address'] !== null) ? $_SESSION['address'] : "empty";
+							echo $message;
+						?>"></td>
+					  </tr>
+					  <tr>
+						<td>City:</td>
+						<td><input maxlength="50" type="text" name="city" placeholder="<?php 
+							$message = ($_SESSION['city'] !== null) ? $_SESSION['city'] : "empty";
+							echo $message;
+						?>"></td>
+					  </tr>
+					  <tr>
+						<td>Postcode:</td>
+						<td><input type="number" min="0" max="9999" name="postcode" placeholder="<?php 
+							$message = ($_SESSION['postcode'] !== null) ? $_SESSION['postcode'] : "empty";
+							echo $message;
+						?>"></td>
+					  </tr>
+					  <tr>
+						<td>Phone:</td>
+						<td><input type="number" min="0" max="9999999999" name="phone" placeholder="<?php 
+							$message = ($_SESSION['phone'] !== null) ? $_SESSION['phone'] : "empty";
+							echo $message;
+						?>"></td>
+					  </tr>
+					  
 								
                     </tbody>
                   </table>
@@ -92,10 +105,14 @@ echo $retval."<br>";
             </div>
 
             <div class="panel-footer">
-				<button type="submit" name="submit" value="Save" class="btn btn-sm btn-success" tabindex="5"><i class="glyphicon glyphicon-floppy-save"></i></button>
+				<button type="submit" name="submit" value="Save" class="btn btn-primary btn-lg btn-block" tabindex="5">Save changes</button>
 				</form>
             </div>
 		</div>
         </div>
       </div>
     </div>
+	<?php
+//include footer template
+require('layout/footer.php');
+?>

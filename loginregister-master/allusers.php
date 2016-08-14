@@ -31,3 +31,7 @@ require('layout/header.php');
 		</div>
 	</div>
 </div>
+<?php
+//include footer template
+require('layout/footer.php');
+?>

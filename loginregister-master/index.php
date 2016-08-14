@@ -1,5 +1,6 @@
 <?php require('includes/config.php');
 
+
 //if logged in redirect to members page
 //if( $user->is_logged_in() ){ header('Location: memberpage.php'); }
 
@@ -18,8 +19,15 @@ require('layout/header.php');
   <div class="row">
     <div class="col-sm-12">
       <h1><center>Gumbay Australia</center></h1>
-		<?php if( $user->is_logged_in() ){ 
-			echo "<center><p class=\"lead\">Welcome back to Gumbay <i><b>".$_SESSION['fullname']."</b></i></p></center>	";
+		<?php 
+		if (isset($_SESSION['fullname'])){
+		$message = ($_SESSION['fullname'] == !null) ? "<i><b>".$_SESSION['fullname']."</b></i>" : "<br>Please set your profile details <a href='profile.php'>here.</a>";
+		}
+		if (isset($_GET['nologin'])){ 
+			echo "<center><p class=\"lead\">You need to <a href='login.php'>log in</a> to look at your profile!</p></center>";
+		}
+		if( $user->is_logged_in() ){ 
+			echo "<center><p class=\"lead\">Welcome back to Gumbay $message</p></center>	";
 		}else{
 			echo "<center><p class=\"lead\">Welcome to Gumbay, Australia's best sales website!</p></center>";
 		echo "

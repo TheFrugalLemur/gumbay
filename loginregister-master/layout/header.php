@@ -2,11 +2,13 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <title><?php if(isset($title)){ echo $title; }?></title>
     <link href="//netdna.bootstrapcdn.com/bootstrap/3.1.0/css/bootstrap.min.css" rel="stylesheet">
 	<script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha256-cCueBR6CsyA4/9szpPfrX3s49M9vUU5BgtiJj06wt/s=" crossorigin="anonymous"></script>
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script><link rel="stylesheet" href="style/main.css">
-	
+	<link href="sticky-footer.css" rel="stylesheet">
 </head>
 <body>
 <div class="navbar navbar-default navbar-fixed-top">
@@ -29,7 +31,9 @@ body {
                 <ul class="nav navbar-nav">
                     <li class=""><a href="index.php">Home</a>
                     </li>					
-                    <li class=""><a href="#">Sales</a>
+                    <li class=""><a href="sales.php">Create a Sale</a>
+                    </li>					
+                    <li class=""><a href="allsales.php">View Sales</a>
                     </li>
 				</ul>
 				<ul class="nav navbar-nav navbar-right">
@@ -96,8 +100,14 @@ body {
 					
 				while($row = mysqli_fetch_assoc($result2))
 				{
-					$_SESSION['fullname'] = $row['fullname'];
-					$_SESSION['dob'] = $row['dateofbirth'];
+					$_SESSION['fullname'] = ($row['fullname'] !== "") ? $row['fullname'] : null;
+					$_SESSION['dob'] = ($row['dateofbirth'] !== "") ? $row['dateofbirth'] : null;
+					$_SESSION['gender'] = ($row['gender'] !== "") ? $row['gender'] : null;
+					$_SESSION['address'] = ($row['address'] !== "") ? $row['address'] : null;
+					$_SESSION['city'] = ($row['city'] !== "") ? $row['city'] : null;
+					$_SESSION['postcode'] = ($row['postcode'] !== "") ? $row['postcode'] : null;
+					$_SESSION['phone'] = ($row['phone'] !== "") ? $row['phone'] : null;
+					$_SESSION['balance'] = ($row['balance'] !== "") ? $row['balance'] : null;
 				}
 			}
 		}
