@@ -43,7 +43,6 @@ if (isset($_POST['submit'])) {
 	}
 	
 	$sql = "INSERT INTO items (itemTitle, itemDescription, price, shippingPrice, memberID) VALUES ('$itemTitle', '$itemDescription', '$itemPrice', '$itemShipping', ".$_SESSION['memberID'].")";
-	echo $sql;
 	
 	$result = mysqli_query($conn, $sql);
 	

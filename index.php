@@ -26,6 +26,9 @@ require('layout/header.php');
 		if (isset($_GET['nologin'])){ 
 			echo "<center><p class=\"lead\">You need to <a href='login.php'>log in</a> to look at your profile!</p></center>";
 		}
+		if (isset($_GET['nopermission'])){ 
+			echo "<center><p class=\"lead\">You <i><b>do not</b></i> have permission to view this page!</p></center>";
+		}
 		if( $user->is_logged_in() ){ 
 			echo "<center><p class=\"lead\">Welcome back to Gumbay $message</p></center>	";
 		}else{

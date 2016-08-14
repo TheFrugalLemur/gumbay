@@ -1,7 +1,7 @@
 <?php require('includes/config.php');
 
-//if logged in redirect to members page
-//if( $user->is_logged_in() ){ header('Location: memberpage.php'); }
+//if not admin in redirect to home
+if(!$_SESSION['username'] == 'admin'){ header('Location: index.php?nopermission'); }
 
 //if form has been submitted process it
 if(isset($_POST['submit'])){
@@ -9,7 +9,7 @@ if(isset($_POST['submit'])){
 	}
 
 //define page title
-$title = 'All Sales - Gumbay';
+$title = 'Admin - Gumbay';
 
 //include header template
 require('layout/header.php');
