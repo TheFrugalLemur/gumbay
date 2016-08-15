@@ -32,8 +32,15 @@ require('layout/header.php');
 					$swag=mysqli_connect('localhost', 'root', 'password', 'db');
 					$query = $swag->query("SELECT * FROM items");
 					while($row = $query->fetch_array()){
-						$message = ($row['active'] == "yes") ? "<tr>" : "<tr class=\"danger\">";
-						echo $message;
+						if ($row['active'] !== "yes"){ 
+							echo "<tr class=\"danger\">";
+						}elseif(isset($_GET['itemID'])){
+							if($row['itemID']==$_GET['itemID']){
+							echo "<tr class=\"success\">";
+							}
+						}else{
+							echo "<tr>";
+						}
 						echo "<td>".$row['itemID']."</td>";
 						echo "<td>".$row['itemTitle']."</td>";
 						echo "<td>".$row['itemDescription']."</td>";

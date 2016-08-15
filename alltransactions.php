@@ -9,7 +9,7 @@ if(isset($_POST['submit'])){
 	}
 
 //define page title
-$title = 'Demo';
+$title = 'All Transactions - Gumbay';
 
 //include header template
 require('layout/header.php');
@@ -31,6 +31,10 @@ require('layout/header.php');
 					$swag=mysqli_connect('localhost', 'root', 'password', 'db');
 					$query = $swag->query("SELECT * FROM transactions WHERE memberID = '".$_SESSION['memberID']."'");
 					while($row = $query->fetch_array()){
+						if (isset($_GET['itemID'])){							
+							$message = ($row['itemID']==$_GET['itemID']) ? "<tr class=\"success\">" : "<tr>";
+						}else{$message = "<tr>";}
+						echo $message;
 						echo "<td>".$row['itemID']."</td>";
 						echo "<td>".$row['transactionID']."</td>";
 						echo "<td>".$row['transactionTime']."</td>";

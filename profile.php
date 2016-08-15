@@ -107,7 +107,6 @@ if(isset($_GET['action']) && $_GET['action'] == 'edit'){
 				$balance = $row['balance'];
 				if ($balance == ""){ $balance = null;}
 			}
-			echo "</table></center>";
 		}
 	}
 			
@@ -190,7 +189,7 @@ if(isset($_GET['action']) && $_GET['action'] == 'edit'){
                       </tr> 
 					  <tr>
                         <td>Balance:</td>
-                        <td>".$balance."</td>
+                        <td>$".$balance."</td>
                       </tr> 
 					  
                     </tbody>
@@ -198,7 +197,9 @@ if(isset($_GET['action']) && $_GET['action'] == 'edit'){
               </div>
             </div>
                 <div class=\"panel-footer\">";
+				if($_SESSION['username']=="admin"){echo "<a href=\"admin.php\" data-original-title=\"request\" data-toggle=\"tooltip\" type=\"button\" class=\"btn btn-success btn-lg btn-block\">View Balance Requests</a>";}
 				?>
+			<a href="request.php" data-original-title="request" data-toggle="tooltip" type="button" class="btn btn-warning btn-lg btn-block">Request Balance Reset</a>
 			<a href="edit.php" data-original-title="Edit profile" data-toggle="tooltip" type="button" class="btn btn-primary btn-lg btn-block">Edit Profile</a>
                         
                         

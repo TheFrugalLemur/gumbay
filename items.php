@@ -29,6 +29,8 @@ if (isset($_POST['submit'])){
 	}
 	
 	buyitem();
+	
+	header('location:alltransactions.php?action=success&itemID='.$_GET['item'].'');
 }
 
 ?>
@@ -52,11 +54,6 @@ if (isset($_GET['item'])){
 
 	$sql = ("SELECT * FROM items WHERE itemID = '".$_GET['item']."'");
 	$result = mysqli_query($conn, $sql);
-	
-	if(!$result)
-	{
-		die('<p>Could not find data</p>');
-	}
 
 	if(!$result)
 	{
@@ -90,7 +87,9 @@ if (isset($_GET['item'])){
 			echo "</table></center>";
 		}
 	}
-}	
+}else{
+	header('location: allsales.php');
+}
 ?>
 
 <div class="container">

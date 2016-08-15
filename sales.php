@@ -43,13 +43,24 @@ if (isset($_POST['submit'])) {
 	}
 	
 	$sql = "INSERT INTO items (itemTitle, itemDescription, price, shippingPrice, memberID) VALUES ('$itemTitle', '$itemDescription', '$itemPrice', '$itemShipping', ".$_SESSION['memberID'].")";
+	$sql2 = "SELECT itemID FROM items WHERE itemID = (SELECT MAX(itemID) FROM items)";
 	
 	$result = mysqli_query($conn, $sql);
+	$result2 = mysqli_query($conn, $sql2);
 	
 	if(!$result)
 	{
 		die("<p>Could not enter data: ".mysql_error()."</p>");
 	}
+	if(!$result2)
+	{
+		die("<p>Could not enter data: ".mysql_error()."</p>");
+	}
+	while($row = $result2->fetch_array()){
+		$itemID = $row['itemID'];
+		echo $itemID;
+	}
+	header('location:allsales.php?action=success&itemID='.$itemID.'');
 }
 
 ?>
@@ -90,7 +101,7 @@ body {
   <div class="col-md-4">
     <div class="input-group">
       <span class="input-group-addon">$</span>
-      <input id="itemPrice" name="itemPrice" class="form-control" placeholder="10.00" type="text" required="">
+      <input id="itemPrice" name="itemPrice" class="form-control" placeholder="10.00" min="0.01" type="number" step="0.01" required="">
     </div>
     <p class="help-block">Use only digits</p>
   </div>
@@ -102,7 +113,7 @@ body {
   <div class="col-md-4">
     <div class="input-group">
       <span class="input-group-addon">$</span>
-      <input id="itemShipping" name="itemShipping" class="form-control" placeholder="2.50" type="text" required="">
+      <input id="itemShipping" name="itemShipping" class="form-control" placeholder="2.50" min="0.01" type="number" step="0.01"  required="">
     </div>
     <p class="help-block">Use only digits</p>
   </div>

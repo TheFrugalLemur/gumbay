@@ -29,6 +29,9 @@ require('layout/header.php');
 		if (isset($_GET['nopermission'])){ 
 			echo "<center><p class=\"lead\">You <i><b>do not</b></i> have permission to view this page!</p></center>";
 		}
+		if (isset($_GET['request'])){ 
+			echo "<center><p class=\"lead\">Your request was submitted successfully!</p></center>";
+		}
 		if( $user->is_logged_in() ){ 
 			echo "<center><p class=\"lead\">Welcome back to Gumbay $message</p></center>	";
 		}else{
