@@ -5,7 +5,7 @@ if($_SESSION['username'] !== 'admin'){ header('Location: index.php?nopermission'
 
 //if form has been submitted process it
 if(isset($_POST['submit-yes'])){
-	$sql = "UPDATE profiles SET request = '0', balance = '0' WHERE memberID='".$_POST['memberID']."'";
+	$sql = "UPDATE profiles SET request = '0', balance = '0' WHERE memberID='".$_GET['requestID']."'";
 	
 	$dbhost = 'localhost';
 	$dbuser = 'root';
@@ -20,8 +20,7 @@ if(isset($_POST['submit-yes'])){
 	}
 	
 	$result = mysqli_query($conn, $sql);
-	
-	header('Location: index.php?request');
+	header('Location: admin.php?');
 }elseif (isset($_POST['submit-no'])){
 	$sql = "UPDATE profiles SET request = '0' WHERE memberID='".$_POST['memberID']."'";
 
@@ -39,7 +38,7 @@ if(isset($_POST['submit-yes'])){
 	
 	$result = mysqli_query($conn, $sql);
 	
-	header('Location: index.php?request');
+	header('Location: admin.php?');
 }
 
 
@@ -71,8 +70,9 @@ require('layout/header.php');
 						echo "<td>".$row['memberID']."</td>";
 						echo "<td>".$row['fullname']."</td>";
 						echo "<td>$".$row['balance']."</td>";
-						echo "<form method=\"post\">";
-						echo "<input type=\"hidden\" name=\"memberID\" value=".$row['memberID'].">";
+						$memberIDfun = $row['memberID'];
+						echo "<form method=\"post\" action=\"".$_SERVER['PHP_SELF']."?requestID=".$memberIDfun."\">";
+						echo "<input type=\"hidden\" name=\"memberID\" value=".$memberIDfun.">";
 						echo "<td><button id=\"submit\" value=\"approve\" name=\"submit-yes\" class=\"btn btn-success btn-sm\">Approve</button></td>";
 						echo "<td><button id=\"submit\" value=\"deny\" name=\"submit-no\" class=\"btn btn-warning btn-sm\">Deny</button></td>";
 						echo "<form>";
