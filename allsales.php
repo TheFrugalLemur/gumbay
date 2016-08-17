@@ -16,6 +16,14 @@ require('layout/header.php');
 ?>
 <div class="container">
 	<div class="row">
+	<?php
+	if (isset($_GET['mode'])){
+		$message = ($_GET['mode'] == "showall") ? "<a href=\"allsales.php?mode=showforsale\" data-toggle=\"tooltip\" type=\"button\" class=\"btn btn-success btn-lg btn-block\">Show For Sale</a>" : "<a href=\"allsales.php?mode=showall\" data-toggle=\"tooltip\" type=\"button\" class=\"btn btn-success btn-lg btn-block\">Show All</a>";
+	}else{
+		$message = "<a href=\"allsales.php?mode=showforsale\" data-toggle=\"tooltip\" type=\"button\" class=\"btn btn-success btn-lg btn-block\">Show For Sale</a>";
+	}
+	echo $message;
+	?>
 			<table class="table table-hover">
 				<thead class="thead-inverse">
 					<tr>
@@ -30,26 +38,65 @@ require('layout/header.php');
 				</thead>
 					<?php
 					$swag=mysqli_connect('localhost', 'root', 'password', 'db');
-					$query = $swag->query("SELECT * FROM items");
-					while($row = $query->fetch_array()){
-						if ($row['active'] !== "yes"){ 
-							echo "<tr class=\"danger\">";
-						}elseif(isset($_GET['itemID'])){
-							if($row['itemID']==$_GET['itemID']){
-							echo "<tr class=\"success\">";
+					if (isset($_GET['mode']) && $_GET['mode'] == "showall"){
+						$query = $swag->query("SELECT * FROM items");
+						while($row = $query->fetch_array()){
+							if ($row['active'] !== "yes"){ 
+								echo "<tr class=\"danger\">";
+							}elseif(isset($_GET['itemID'])){
+								if($row['itemID']==$_GET['itemID']){
+								echo "<tr class=\"success\">";
+								}
+							}else{
+								echo "<tr>";
 							}
-						}else{
-							echo "<tr>";
+							echo "<td>".$row['itemID']."</td>";
+							echo "<td>".$row['itemTitle']."</td>";
+							echo "<td>".$row['itemDescription']."</td>";
+							echo "<td>$".$row['price']."</td>";
+							echo "<td>$".$row['shippingPrice']."</td>";
+							echo "<td>".$row['memberID']."</td>";
+							$message = ($row['active'] == "yes") ? "<td><a href='items.php?item=".$row['itemID']."'>For sale!</a></td>" : "<td>Sold!</td>";
+							echo $message;
+							echo "</tr>";
 						}
-						echo "<td>".$row['itemID']."</td>";
-						echo "<td>".$row['itemTitle']."</td>";
-						echo "<td>".$row['itemDescription']."</td>";
-						echo "<td>$".$row['price']."</td>";
-						echo "<td>$".$row['shippingPrice']."</td>";
-						echo "<td>".$row['memberID']."</td>";
-						$message = ($row['active'] == "yes") ? "<td><a href='items.php?item=".$row['itemID']."'>For sale!</a></td>" : "<td>Sold!</td>";
-						echo $message;
-						echo "</tr>";
+					}elseif (isset($_GET['mode']) && $_GET['mode'] == "showforsale"){
+						$query = $swag->query("SELECT * FROM items WHERE active = 'yes'");
+						while($row = $query->fetch_array()){
+							echo "<tr>";
+							echo "<td>".$row['itemID']."</td>";
+							echo "<td>".$row['itemTitle']."</td>";
+							echo "<td>".$row['itemDescription']."</td>";
+							echo "<td>$".$row['price']."</td>";
+							echo "<td>$".$row['shippingPrice']."</td>";
+							echo "<td>".$row['memberID']."</td>";
+							$message = ($row['active'] == "yes") ? "<td><a href='items.php?item=".$row['itemID']."'>For sale!</a></td>" : "<td>Sold!</td>";
+							echo $message;
+							echo "</tr>";
+						}
+						if (empty($row)){echo "<tr><td colspan=\"7\"><p><font size=\"20px\"><center>Nothing for sale!</center></p></td></tr>";}
+					}else {
+							$query = $swag->query("SELECT * FROM items");
+						while($row = $query->fetch_array()){
+							if ($row['active'] !== "yes"){ 
+								echo "<tr class=\"danger\">";
+							}elseif(isset($_GET['itemID'])){
+								if($row['itemID']==$_GET['itemID']){
+								echo "<tr class=\"success\">";
+								}
+							}else{
+								echo "<tr>";
+							}
+							echo "<td>".$row['itemID']."</td>";
+							echo "<td>".$row['itemTitle']."</td>";
+							echo "<td>".$row['itemDescription']."</td>";
+							echo "<td>$".$row['price']."</td>";
+							echo "<td>$".$row['shippingPrice']."</td>";
+							echo "<td>".$row['memberID']."</td>";
+							$message = ($row['active'] == "yes") ? "<td><a href='items.php?item=".$row['itemID']."'>For sale!</a></td>" : "<td>Sold!</td>";
+							echo $message;
+							echo "</tr>";
+						}
 					}
 					?>
 			</table>
