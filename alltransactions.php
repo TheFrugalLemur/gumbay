@@ -51,7 +51,7 @@ require('layout/header.php');
 						echo "</tr>";
 					}
 					?>
-					<tr><td></td><td></td><td></td><td></td><td>Total Spent:</td><td>$<?php echo $alltotal; ?></td></tr>
+					<tr><td></td><td></td><td></td><td></td><td>Total Spent:</td><td>$<?php if (isset($alltotal)){echo $alltotal;}else{echo "0";} ?></td></tr>
 			</table>
 	</div>
 </div>
