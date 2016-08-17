@@ -9,6 +9,7 @@
 	<script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha256-cCueBR6CsyA4/9szpPfrX3s49M9vUU5BgtiJj06wt/s=" crossorigin="anonymous"></script>
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script><link rel="stylesheet" href="style/main.css">
 	<link href="sticky-footer.css" rel="stylesheet">
+	<link rel="icon" href="favicon.ico" type="image/x-icon" />
 </head>
 <body>
 <div class="navbar navbar-default navbar-fixed-top">
@@ -102,6 +103,7 @@ body {
 				{
 					$_SESSION['fullname'] = ($row['fullname'] !== "") ? $row['fullname'] : null;
 					$_SESSION['dob'] = ($row['dateofbirth'] !== "") ? $row['dateofbirth'] : null;
+					$_SESSION['memberType'] = ($row['memberType'] !== "") ? $row['memberType'] : null;
 					$_SESSION['gender'] = ($row['gender'] !== "") ? $row['gender'] : null;
 					$_SESSION['address'] = ($row['address'] !== "") ? $row['address'] : null;
 					$_SESSION['city'] = ($row['city'] !== "") ? $row['city'] : null;

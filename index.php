@@ -21,7 +21,9 @@ require('layout/header.php');
       <h1><center>Gumbay Australia</center></h1>
 		<?php 
 		if (isset($_SESSION['fullname'])){
-		$message = ($_SESSION['fullname'] == !null) ? "<i><b>".$_SESSION['fullname']."</b></i>" : "<br>Please set your profile details <a href='profile.php'>here.</a>";
+		$message = ($_SESSION['fullname'] == !null) ? "<i><b>".$_SESSION['fullname']."</b></i>" : "".$_SESSION['username']."<br>Please set your profile details <a href='profile.php'>here.</a>";
+		}else{
+		$message = "<b><i></i></b><br>Please set your profile details <a href='profile.php'>here.</a>";
 		}
 		if (isset($_GET['nologin'])){ 
 			echo "<center><p class=\"lead\">You need to <a href='login.php'>log in</a> to look at your profile!</p></center>";

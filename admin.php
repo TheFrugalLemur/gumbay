@@ -1,7 +1,7 @@
 <?php require('includes/config.php');
-
+require('layout/header.php');
 //if not admin in redirect to home
-if($_SESSION['username'] !== 'admin'){ header('Location: index.php?nopermission'); }
+if($_SESSION['memberType'] !== 'admin'){ header('Location: index.php?action=fail&nopermission&error='.$_SESSION['memberType'].'&memberID='.$_SESSION['memberID']); }
 
 //if form has been submitted process it
 if(isset($_POST['submit-yes'])){

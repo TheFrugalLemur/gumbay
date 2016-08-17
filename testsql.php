@@ -78,7 +78,7 @@ function buyitem(){
 	$sqlfn = "";
 
 	$sql = "UPDATE items SET active = 'no' WHERE itemID='".$_GET['item']."'";
-	$sql2 = "INSERT INTO transactions (itemID, memberID, transactionTime) VALUES ('".$_GET['item']."', '".$_SESSION['memberID']."', NOW())";
+	$sql2 = "INSERT INTO transactions (itemID, memberID, transactionTime) VALUES ('".$_GET['item']."', '".$_SESSION['memberID']."', CURRENT_TIMESTAMP())";
 	$pricing = ($balance - $itemPrice - $itemShipping);
 	$sql3 = "UPDATE profiles SET balance = '".$pricing."' WHERE memberID = ".$_SESSION['memberID']."";
 	
