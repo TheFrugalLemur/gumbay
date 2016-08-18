@@ -106,6 +106,9 @@ if(isset($_GET['action']) && $_GET['action'] == 'edit'){
 				
 				$balance = $row['balance'];
 				if ($balance == ""){ $balance = null;}
+				
+				$memberType = $row['memberType'];
+				if ($memberType == ""){ $memberType = null;}
 			}
 		}
 	}
@@ -113,7 +116,7 @@ if(isset($_GET['action']) && $_GET['action'] == 'edit'){
 ?>
 <div class="container">
       <div class="row">
-        <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xs-offset-0 col-sm-offset-0 col-md-offset-3 col-lg-offset-3 toppad" >
+        <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xs-offset-0 col-sm-offset-0 col-md-offset-3 col-lg-offset-3 toppad"  style="padding-bottom: 50px;">
    
    
           <div class="panel panel-info">
@@ -158,6 +161,10 @@ if(isset($_GET['action']) && $_GET['action'] == 'edit'){
                       <tr>
                         <td>Member Number:</td>
                         <td>".$memberID."</td>
+                      </tr>
+                      <tr>
+                        <td>Member Type:</td>
+                        <td>".$memberType."</td>
                       </tr>
                       <tr>
                         <td>Join Date:</td>

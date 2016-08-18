@@ -9,7 +9,7 @@
 	<script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha256-cCueBR6CsyA4/9szpPfrX3s49M9vUU5BgtiJj06wt/s=" crossorigin="anonymous"></script>
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script><link rel="stylesheet" href="style/main.css">
 	<link href="sticky-footer.css" rel="stylesheet">
-	<link rel="icon" href="favicon.ico" type="image/x-icon" />
+	<link rel="icon" href="images/favicon.ico" type="image/x-icon" />
 </head>
 <body>
 <div class="navbar navbar-default navbar-fixed-top">
@@ -40,8 +40,9 @@ body {
 				<ul class="nav navbar-nav navbar-right">
 				<?php
 					if( $user->is_logged_in() ){
-						echo "
-					<li><a href=\"profile.php\">Profile</a>
+						echo "<li><a href=\"alltransactions.php\">All Transactions</a>
+                    </li>
+					<li><a href=\"profile.php\">Profile (".$_SESSION['username'].")</a>
                     </li>
                     <li><a href=\"logout.php\">Logout</a>
                     </li>";}else{

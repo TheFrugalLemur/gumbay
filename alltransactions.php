@@ -1,7 +1,7 @@
 <?php require('includes/config.php');
 
 //if logged in redirect to members page
-//if( $user->is_logged_in() ){ header('Location: memberpage.php'); }
+if( !$user->is_logged_in() ){ header('Location: index.php'); }
 
 //if form has been submitted process it
 if(isset($_POST['submit'])){
@@ -31,6 +31,7 @@ require('layout/header.php');
 					$swag=mysqli_connect('localhost', 'root', 'password', 'db');
 					$query = $swag->query("SELECT * FROM transactions WHERE memberID = '".$_SESSION['memberID']."'");
 					while($row = $query->fetch_array()){
+						if (!empty($row)){
 						if (isset($_GET['itemID'])){							
 							$message = ($row['itemID']==$_GET['itemID']) ? "<tr class=\"success\">" : "<tr>";
 						}else{$message = "<tr>";}
@@ -49,6 +50,9 @@ require('layout/header.php');
 						}
 						echo "<td>$".$total."</td>";
 						echo "</tr>";
+						}else{
+							echo "<tr><td colspan=\"5\"><p><font size=\"20px\">No transactions!</font></p></td><th>Total Paid</th></tr>";
+						}
 					}
 					?>
 					<tr><td></td><td></td><td></td><td></td><td>Total Spent:</td><td>$<?php if (isset($alltotal)){echo $alltotal;}else{echo "0";} ?></td></tr>
