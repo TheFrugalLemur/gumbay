@@ -21,7 +21,7 @@ function createsqlfn() {
 	}
 
 	if (!empty($birthday)){ 
-	if (!empty($sqlfn)){$sqlfn = $sqlfn.",birthday='$birthday'";}else{$sqlfn = "birthday='$birthday'";}
+	if (!empty($sqlfn)){$sqlfn = $sqlfn.",dateofbirth='$birthday'";}else{$sqlfn = "dateofbirth='$birthday'";}
 	}
 	
 	if (!empty($gender)){ 
@@ -46,6 +46,7 @@ function createsqlfn() {
 
 	if ($sqlfn !== ""){
 	$sql = "UPDATE profiles SET ".$sqlfn." WHERE memberID='".$_SESSION['memberID']."'";	
+	echo $sql;
 	
 	$dbhost = 'localhost';
 	$dbuser = 'root';

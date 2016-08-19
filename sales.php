@@ -9,8 +9,8 @@ require('layout/header.php');
 
 <?php 
 
-if ($user->is_logged_in()==false) {
-	header('Location: login.php?notloggedin');
+if (!$user->is_logged_in()) {
+	header('Location: login.php?reason=notloggedin&source=sales');
 }
 
 ?>

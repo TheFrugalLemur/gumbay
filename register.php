@@ -2,7 +2,7 @@
 require('layout/header.php');
 
 //if logged in redirect to members page
-if( $user->is_logged_in() ){ header('Location: memberpage.php'); }
+if( $user->is_logged_in() ){ header('Location: index.php'); }
 
 //if form has been submitted process it
 if(isset($_POST['submit'])){
@@ -54,7 +54,7 @@ if(isset($_POST['submit'])){
 			));
 			$id = $db->lastInsertId('memberID');
 					
-			$sql = "INSERT INTO profiles (fullname, dateofbirth, memberID, joindate, address, city, postcode, phone) VALUES (NULL, NULL, $id, CURDATE(), NULL, NULL, NULL, NULL)";
+			$sql = "INSERT INTO profiles (fullname, dateofbirth, memberID, joindate, address, city, postcode, phone) VALUES (NULL, NULL, $id, datetime(), NULL, NULL, NULL, NULL)";
 			echo $sql;
 			
 			mysqli_select_db($conn, 'db');

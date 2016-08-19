@@ -50,8 +50,15 @@ require('layout/header.php');
 					}
 				}
 				
-				if (isset($_GET['notloggedin'])){
-					echo '<p class="bg-danger">You must log in before you can create a sale</p>';
+				if (isset($_GET['reason'])){
+					switch ($_GET['source']) {
+						case 'sales':
+							echo "<p class=\"bg-danger\">You must log in before you can create a sale</p>";
+							break;
+						case 'request':
+							echo "<p class=\"bg-danger\">You must log in before you can request a balance reset</p>";
+							break;
+					}
 				}
 
 				if(isset($_GET['action'])){

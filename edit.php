@@ -2,6 +2,9 @@
 //define page title
 $title = 'Edit - Gumbay';
 
+#if(!$user->is_logged_in()){header('Location: index.php?action=nologin&source=edit');}
+
+
 //include header template
 require('testsql.php');
 ?>

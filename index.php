@@ -18,7 +18,7 @@ require('layout/header.php');
 <div class="container">
   <div class="row">
     <div class="col-sm-12">
-      <h1><center>Gumbay Australia</center></h1>
+      <h1><center><u>Gumbay Australia</u></center></h1><br>
 		<?php 
 		if (isset($_SESSION['fullname'])){
 		$message = ($_SESSION['fullname'] == !null) ? "<i><b>".$_SESSION['fullname']."</b></i>" : "".$_SESSION['username']."<br>Please set your profile details <a href='profile.php'>here.</a>";
@@ -31,9 +31,21 @@ require('layout/header.php');
 		if (isset($_GET['nopermission'])){ 
 			echo "<center><p class=\"lead\">You <i><b>do not</b></i> have permission to view this page!</p></center>";
 		}
-		if (isset($_GET['request'])){ 
-			echo "<center><p class=\"lead\">Your request was submitted successfully!</p></center>";
+		if (isset($_GET['action'])){ 
+		if (isset($_GET['status'])){
+			switch ($_GET['status']) {
+				case 'success':
+					echo "<center><p class=\"lead\">Your request was submitted successfully!</p></center>";
+					break;
+				case 'failed':
+					echo "<center><p class=\"lead\">Your request was not submitted successfully! <br>Try again later.</p></center>";
+					break;
+			}
 		}
+		}
+		if (isset($_GET['source'])){
+			if ($_GET['source']=="edit"){echo "<center><p class=\"lead\">You need to <a href='login.php'>log in</a> to edit your profile!</p></center>";}
+		}			
 		if( $user->is_logged_in() ){ 
 			echo "<center><p class=\"lead\">Welcome back to Gumbay $message</p></center>	";
 		}else{

@@ -24,7 +24,7 @@ require('layout/header.php');
 	}
 	echo $message;
 	?>
-			<table class="table table-hover">
+			<table class="sortable table table-hover">
 				<thead class="thead-inverse">
 					<tr>
 					  <th>Number</th>

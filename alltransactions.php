@@ -16,7 +16,7 @@ require('layout/header.php');
 ?>
 <div class="container">
 	<div class="row">
-			<table class="table table-hover" style="margin-bottom:100px;">
+			<table class="sortable table table-hover" style="margin-bottom:100px;">
 				<thead class="thead-inverse">
 					<tr>
 					  <th>Item Number</th>
@@ -27,6 +27,7 @@ require('layout/header.php');
 					  <th>Total Paid</th>
 					</tr>
 				</thead>
+				<tbody>
 					<?php
 					$swag=mysqli_connect('localhost', 'root', 'password', 'db');
 					$query = $swag->query("SELECT * FROM transactions WHERE memberID = '".$_SESSION['memberID']."'");
@@ -49,13 +50,13 @@ require('layout/header.php');
 							echo "<td>$".$row['shippingPrice']."</td>";
 						}
 						echo "<td>$".$total."</td>";
-						echo "</tr>";
+						echo "</tr></tbody>";
 						}else{
 							echo "<tr><td colspan=\"5\"><p><font size=\"20px\">No transactions!</font></p></td><th>Total Paid</th></tr>";
 						}
 					}
 					?>
-					<tr><td></td><td></td><td></td><td></td><td>Total Spent:</td><td>$<?php if (isset($alltotal)){echo $alltotal;}else{echo "0";} ?></td></tr>
+					<tfoot><tr><td colspan="4"></td><td>Total Spent:</td><td>$<?php if (isset($alltotal)){echo $alltotal;}else{echo "0";} ?></td></tr></tfoot>
 			</table>
 	</div>
 </div>

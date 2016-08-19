@@ -10,6 +10,10 @@
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script><link rel="stylesheet" href="style/main.css">
 	<link href="sticky-footer.css" rel="stylesheet">
 	<link rel="icon" href="images/favicon.ico" type="image/x-icon" />
+	<script src="style/sortable.js"></script>
+	<style>table.sortable th:not(.sorttable_sorted):not(.sorttable_sorted_reverse):not(.sorttable_nosort):after { 
+    content: " \25B4\25BE" 
+}</style>
 </head>
 <body>
 <div class="navbar navbar-default navbar-fixed-top">

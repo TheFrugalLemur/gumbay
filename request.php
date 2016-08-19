@@ -1,7 +1,7 @@
 <?php require('includes/config.php');
 
 //if logged in redirect to members page
-if( !$user->is_logged_in() ){ header('Location: login.php?notloggedin'); }
+if( !$user->is_logged_in() ){ header('Location: login.php?reason=notloggedin&source=request'); }
 
 //if form has been submitted process it
 if(isset($_POST['submit'])){
@@ -21,7 +21,7 @@ if(isset($_POST['submit'])){
 	
 	$result = mysqli_query($conn, $sql);
 	
-	header('Location: index.php?request');
+	header('Location: index.php?action=request&status=success');
 	
 }
 
