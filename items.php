@@ -1,13 +1,11 @@
 <?php require('includes/config.php');
 
-if(isset($_POST['submit'])){
-
-
-
-}
-
 //define page title
-$title = 'Items - Gumbay';
+$title = 'Item - Gumbay';
+$page = 'item';
+$loginneeded = false;
+$permissionrequired = false;
+$loginforbidden = false;
 
 //include header template
 require('layout/header.php');
@@ -67,7 +65,7 @@ if (isset($_GET['item'])){
 				$itemTitle = $row['itemTitle'];
 				if ($itemTitle == ""){ $itemTitle = null;}
 				
-				$itemDesc = (isset($row['itemDesc'])) ? $row['itemDesc'] : null;
+				$itemDesc = (isset($row['itemDescription'])) ? $row['itemDescription'] : null;
 				if ($itemDesc == ""){ $itemDesc = null;}
 				
 				$itemID = $row['itemID'];
@@ -94,7 +92,7 @@ if (isset($_GET['item'])){
 
 <div class="container">
       <div class="row">
-        <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xs-offset-0 col-sm-offset-0 col-md-offset-3 col-lg-offset-3 toppad" >
+        <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xs-offset-0 col-sm-offset-0 col-md-offset-3 col-lg-offset-3 toppad" style="margin-bottom:70px;" >
    
    
           <div class="panel panel-info">
@@ -104,8 +102,7 @@ if (isset($_GET['item'])){
             <div class="panel-body">
 			
               <div class="row">
-                <div class="col-md-2 col-lg-2 " align="center">  </div>
-                <div class=" col-md-8 col-lg-8 "> 
+                <div class=" col-md-12 col-lg-12 "> 
 				<?php 
 				if(!$user->is_logged_in()){ 
 					echo '<p class="bg-warning">You need to log in to buy this!</p>';
@@ -114,6 +111,9 @@ if (isset($_GET['item'])){
 				echo "
 				<table class=\"table table-user-information\">
                     <tbody>
+					  <tr>
+						<td colspan=\"2\"><center><img src=\"images/items/".$itemID."\" width=\"100%\" alt=\"No image provided.\"></center>
+					  </tr>
                       <tr>
                         <td>Name:</td>
                         <td>";

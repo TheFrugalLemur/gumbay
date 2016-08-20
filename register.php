@@ -1,9 +1,17 @@
 <?php require('includes/config.php');
+
+//define page title
+$title = 'Register - Gumbay';
+$page = 'register';
+$loginneeded = false;
+$permissionrequired = false;
+$loginforbidden = true;
+
+//include header template
 require('layout/header.php');
+?>
 
-//if logged in redirect to members page
-if( $user->is_logged_in() ){ header('Location: index.php'); }
-
+<?php
 //if form has been submitted process it
 if(isset($_POST['submit'])){
 

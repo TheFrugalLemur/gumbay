@@ -1,12 +1,17 @@
+<?php require('includes/config.php');
+
+//define page title
+$title = 'Login - Gumbay';
+$page = 'login';
+$loginneeded = false;
+$permissionrequired = false;
+$loginforbidden = true;
+
+//include header template
+require('layout/header.php');
+?>
+
 <?php
-//include config
-require_once('includes/config.php');
-
-//check if already logged in move to home page
-if( $user->is_logged_in() ){ 
-header('Location: index.php'); 
-} 
-
 //process login form if submitted
 if(isset($_POST['submit'])){
 

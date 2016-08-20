@@ -1,19 +1,16 @@
 <?php require('includes/config.php');
 
-//if logged in redirect to members page
-//if( $user->is_logged_in() ){ header('Location: memberpage.php'); }
-
-//if form has been submitted process it
-if(isset($_POST['submit'])){
-
-	}
-
 //define page title
-$title = 'All Sales - Gumbay';
+$title = 'Sales - Gumbay';
+$page = 'allsales';
+$loginneeded = false;
+$permissionrequired = false;
+$loginforbidden = false;
 
 //include header template
 require('layout/header.php');
 ?>
+
 <div class="container">
 	<div class="row">
 	<?php
@@ -24,7 +21,7 @@ require('layout/header.php');
 	}
 	echo $message;
 	?>
-			<table class="sortable table table-hover">
+			<table class="sortable table table-hover" style="margin-bottom: 70px;" >
 				<thead class="thead-inverse">
 					<tr>
 					  <th>Number</th>
@@ -74,7 +71,6 @@ require('layout/header.php');
 							echo $message;
 							echo "</tr>";
 						}
-						if (empty($row)){echo "<tr><td colspan=\"7\"><p><font size=\"20px\"><center>Nothing for sale!</center></p></td></tr>";}
 					}else {
 							$query = $swag->query("SELECT * FROM items");
 						while($row = $query->fetch_array()){

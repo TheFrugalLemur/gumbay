@@ -1,8 +1,16 @@
 <?php require('includes/config.php');
 
-//if logged in redirect to members page
-if( !$user->is_logged_in() ){ header('Location: login.php?reason=notloggedin&source=request'); }
+//define page title
+$title = 'Request - Gumbay';
+$page = 'request';
+$loginneeded = true;
+$permissionrequired = false;
+$loginforbidden = false;
 
+//include header template
+require('layout/header.php');
+?>
+<?php 
 //if form has been submitted process it
 if(isset($_POST['submit'])){
 	$sql = "UPDATE profiles SET request = '1' WHERE memberID='".$_SESSION['memberID']."'";

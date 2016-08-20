@@ -1,12 +1,14 @@
 <?php require('includes/config.php');
+
 //define page title
 $title = 'Edit - Gumbay';
-
-#if(!$user->is_logged_in()){header('Location: index.php?action=nologin&source=edit');}
-
+$page = 'editprofile';
+$loginneeded = true;
+$permissionrequired = false;
+$loginforbidden = false;
 
 //include header template
-require('testsql.php');
+require('layout/header.php');
 ?>
 
 <?php

@@ -1,3 +1,14 @@
+<?php
+if ($loginneeded==true && !$user->is_logged_in()){
+	header('Location: index.php?source='.$page.'&reason=nologin');
+}elseif ($loginforbidden==true && $user->is_logged_in()){
+	header('Location: index.php?source='.$page.'&reason=loggedin');
+}
+if (($permissionrequired==true) && $_SESSION['memberType'] !== "admin"){
+	header('Location: index.php?source='.$page.'&reason=nopermission');
+	echo $_SESSION['memberType'];
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>

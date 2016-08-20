@@ -1,18 +1,15 @@
 <?php require('includes/config.php');
 
-//if logged in redirect to members page
-if( !$user->is_logged_in() ){ header('Location: index.php'); }
-
-//if form has been submitted process it
-if(isset($_POST['submit'])){
-
-	}
-
 //define page title
-$title = 'All Transactions - Gumbay';
+$title = 'Transcations - Gumbay';
+$page = 'transactions';
+$loginneeded = true;
+$permissionrequired = false;
+$loginforbidden = false;
 
 //include header template
 require('layout/header.php');
+require('testsql.php');
 ?>
 <div class="container">
 	<div class="row">

@@ -1,25 +1,20 @@
 <?php require('includes/config.php');
 
 //define page title
-$title = 'Sales - Gumbay';
+$title = 'Create Sales - Gumbay';
+$page = 'createsale';
+$loginneeded = true;
+$permissionrequired = false;
+$loginforbidden = false;
 
 //include header template
 require('layout/header.php');
-?>
-
-<?php 
-
-if (!$user->is_logged_in()) {
-	header('Location: login.php?reason=notloggedin&source=sales');
-}
-
 ?>
 
 
 <?php 
 
 if (isset($_POST['submit'])) {
-
 
 	$itemTitle = htmlspecialchars($_POST['itemTitle']);
 	$itemTitle = htmlspecialchars($_POST['itemTitle'], ENT_QUOTES);
@@ -60,7 +55,60 @@ if (isset($_POST['submit'])) {
 		$itemID = $row['itemID'];
 		echo $itemID;
 	}
-	header('location:allsales.php?action=success&itemID='.$itemID.'');
+	
+	####################################################################################################
+	#
+	#
+	#	
+		$target_dir = "";
+		$target_file = "21". basename($_FILES["fileToUpload"]["name"]);
+		$uploadOk = 1;
+		$imageFileType = pathinfo($target_file,PATHINFO_EXTENSION);
+		$target_file = "images/items/".$itemID;
+		// Check if image file is a actual image or fake image
+		if(isset($_POST["submit"])) {
+			$check = getimagesize($_FILES["fileToUpload"]["tmp_name"]);
+			if($check !== false) {
+				echo "File is an image - " . $check["mime"] . ".";
+				$uploadOk = 1;
+			} else {
+				echo "File is not an image.";
+				$uploadOk = 0;
+			}
+		}
+		// Check if file already exists
+		if (file_exists($target_file)) {
+			echo "Sorry, file already exists.";
+			$uploadOk = 0;
+		}
+		// Check file size
+		if ($_FILES["fileToUpload"]["size"] > 500000) {
+			echo "Sorry, your file is too large.";
+			$uploadOk = 0;
+		}
+		// Allow certain file formats
+		if($imageFileType != "jpg" && $imageFileType != "PNG" && $imageFileType != "jpeg" && $imageFileType != "gif" ) {
+			echo "Sorry, only JPG, JPEG, PNG & GIF files are allowed.";
+			$uploadOk = 0;
+		}
+		// Check if $uploadOk is set to 0 by an error
+		if ($uploadOk == 0) {
+			echo "Sorry, your file was not uploaded.";
+		// if everything is ok, try to upload file
+		} else {
+			if (move_uploaded_file($_FILES["fileToUpload"]["tmp_name"], $target_file)) {
+				echo "The file ". basename( $_FILES["fileToUpload"]["name"]). " has been uploaded.";
+				$success = true;
+			} else {
+				echo "Sorry, there was an error uploading your file.";
+				$success = false;
+			}
+		}	
+	#
+	#
+	#
+	####################################################################################################
+	header('location:allsales.php?action=success&itemID='.$itemID.'&imageSuccess='.$success);
 }
 
 ?>
@@ -75,7 +123,7 @@ body {
 	padding-right: 15px;
 }
 </style>
-<form class="form-horizontal" method="post">
+<form class="form-horizontal" method="post" enctype="multipart/form-data">
 <fieldset>
 
 <!-- Text input-->
@@ -116,6 +164,14 @@ body {
       <input id="itemShipping" name="itemShipping" class="form-control" placeholder="2.50" min="0.01" type="number" step="0.01"  required="">
     </div>
     <p class="help-block">Use only digits</p>
+  </div>
+</div>
+
+<!-- File Button --> 
+<div class="form-group">
+  <label class="col-md-4 control-label" for="fileToUpload">Image</label>
+  <div class="col-md-4">
+    <center><input id="fileToUpload" name="fileToUpload" class="input-file" type="file"></center>
   </div>
 </div>
 

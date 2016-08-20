@@ -1,10 +1,17 @@
 <?php require('includes/config.php');
-require('layout/header.php');
-//if not admin in redirect to home
-if( !$user->is_logged_in() ){ header('Location: index.php'); }else{
-if($_SESSION['memberType'] !== 'admin'){ header('Location: index.php?action=fail&nopermission&error='.$_SESSION['memberType'].'&memberID='.$_SESSION['memberID']); }
-}
 
+//define page title
+$title = 'Admin - Gumbay';
+$page = 'admin';
+$loginneeded = true;
+$permissionrequired = true;
+$loginforbidden = false;
+
+//include header template
+require('layout/header.php');
+?>
+
+<?php
 //if form has been submitted process it
 if(isset($_POST['submit-yes'])){
 	$sql = "UPDATE profiles SET request = '0', balance = '0' WHERE memberID='".$_GET['requestID']."'";

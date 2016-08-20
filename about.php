@@ -1,19 +1,17 @@
 <?php require('includes/config.php');
 
-//if logged in redirect to members page
-//if( $user->is_logged_in() ){ header('Location: memberpage.php'); }
-
-//if form has been submitted process it
-if(isset($_POST['submit'])){
-
-	}
-
 //define page title
 $title = 'About - Gumbay';
+$page = 'about';
+$loginneeded = false;
+$permissionrequired = false;
+$loginforbidden = false;
 
 //include header template
 require('layout/header.php');
-?><div class="container">
+?>
+
+<div class="container">
   <div class="row">
     <div class="col-sm-12">
       <h1><center>Gumbay Australia<center></h1>

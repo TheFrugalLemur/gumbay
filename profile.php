@@ -1,44 +1,16 @@
 <?php require('includes/config.php');
 
-
-//if form has been submitted process it
-if(isset($_POST['submit'])){
-
-	//if no errors have been created carry on
-	if(!isset($error)){
-
-		try {
-
-			//redirect to register page
-			header('Location: profile.php?action=edit');
-			exit;
-
-		//else catch the exception and show the error.
-		} catch(PDOException $e) {
-		    $error[] = $e->getMessage();
-		}
-
-	}
-
-}
-
 //define page title
 $title = 'Profile - Gumbay';
+$page = 'profile';
+$loginneeded = true;
+$permissionrequired = false;
+$loginforbidden = false;
 
 //include header template
 require('layout/header.php');
-
-if(!$user->is_logged_in()){ 
-	header('Location: index.php?nologin');
-	exit;
-}
 ?>
 
-<?php
-if(isset($_GET['action']) && $_GET['action'] == 'edit'){
-	
-}
-?>
 <?php 
 	$dbhost = 'localhost';
 	$dbuser = 'root';
