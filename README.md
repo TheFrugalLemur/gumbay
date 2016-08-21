@@ -1,4 +1,4 @@
 Login Register
 =============
 
-These files acompany the tutorial: [Login and Registration system with PHP](http://daveismyname.com/login-and-registration-system-with-php-bp)
+The login and register files were retrieved from: [Login and Registration system with PHP](http://daveismyname.com/login-and-registration-system-with-php-bp)
