@@ -111,6 +111,7 @@ if (isset($_POST['submit'])) {
 	header('location:allsales.php?action=success&itemID='.$itemID.'&imageSuccess='.$success);
 }
 
+}
 ?>
 
 <style>
