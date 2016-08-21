@@ -15,7 +15,6 @@ require('layout/header.php');
 <?php 
 
 if (isset($_POST['submit'])) {
-
 	$itemTitle = htmlspecialchars($_POST['itemTitle']);
 	$itemTitle = htmlspecialchars($_POST['itemTitle'], ENT_QUOTES);
 	$itemDescription = htmlspecialchars($_POST['itemDesc']);
